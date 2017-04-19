@@ -1,0 +1,92 @@
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Helvetica Neue",Helvetica,sans-serif;
+  font-size: 13px;
+  -webkit-font-smoothing: antialiased;
+}
+header {
+  padding: 0 6px;
+  background-color: rgba(37, 37, 37, 0.25);
+  flex-wrap: wrap;
+}
+header>a {
+  max-width: 100px;
+  padding: 6px;
+  cursor: pointer;
+  text-decoration: none;
+}
+header>a,
+header>a:visited {
+  color: #fff;
+}
+header>a:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+}
+header>a img{
+  margin-right: 5px;
+}
+header>a span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.grid {
+  background-color: rgba(37, 37, 37, 0.25);
+  padding: 30px;
+  color: #fff;
+}
+
+#search {
+  display: none;
+}
+#search input {
+  border: none;
+  width: 50vw;
+  outline: none;
+  background-color: rgba(37, 37, 37, 0.25);
+  height: 32px;
+  vertical-align: top;
+  border-radius: 2px;
+  text-indent: 5px;
+}
+#search input:focus {
+  background-color: #fff;
+}
+#search img {
+  cursor: pointer;
+}
+
+#time {
+  font: 50px Courier;
+}
+#date {
+  font: 20px Courier;
+}
+
+[hbox] {
+  display: flex;
+  flex-direction: row;
+}
+[vbox] {
+  display: flex;
+  flex-direction: column;
+}
+[inline] {
+  display: inline-flex;
+}
+[pack=center] {
+  justify-content: center;
+}
+[align=center] {
+  align-items: center;
+}
+[flex="1"] {
+  flex: 1;
+}

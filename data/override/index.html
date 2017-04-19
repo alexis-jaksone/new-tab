@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>New Tab :: Time & Date</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body vbox>
+    <header hbox>
+      <a href="chrome://apps/" hbox align=center>
+        <img src="apps.svg" width="16" height="16">
+        <span>Apps</span>
+      </a>
+    </header>
+    <div id="body" flex="1" vbox pack="center" align="center">
+      <div class="grid" vbox>
+        <span id="time">--.--.--</span>
+        <span id="date">Tue, Apr, 18</span>
+      </div>
+    </div>
+    <form id="search" flex="1" vbox pack="center" align="center">
+      <div>
+        <input type="search" name="">
+        <div vbox inline>
+          <div>
+            <img src="search/google.png">
+            <img src="search/bing.png">
+          </div>
+          <div>
+            <img src="search/duckduckgo.png">
+            <img src="search/wikipedia.png">
+          </div>
+        </div>
+      </div>
+    </form>
+    <script src="index.js"></script>
+  </body>
+</html>
