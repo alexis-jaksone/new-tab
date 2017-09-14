@@ -4,7 +4,8 @@ var $ = {
   body: document.body,
   header: {
     parent: document.querySelector('header'),
-    a: document.querySelector('header>a')
+    a: document.querySelector('header>a'),
+    template: document.querySelector('header>template')
   },
   time: document.getElementById('time'),
   date: document.getElementById('date')
@@ -27,47 +28,54 @@ var bing = {
       .then(r => r.json())
       .then(r => base + r.images[0].url);
   },
-  insert: (url) => {
+  insert: url => {
     $.body.style['background-image'] = `url('${url}')`;
   }
 };
 
 var bookmarks = {
-  id: '1',
+  id: typeof InstallTrigger === 'undefined' ? '1' : 'toolbar_____',
+  favicon: url => {
+    if (typeof InstallTrigger === 'undefined') {
+      return 'chrome://favicon/' + url;
+    }
+    else {
+      // temporary solution until nsIFaviconService is supported
+      return 'http://www.google.com/s2/favicons?domain_url=' + url;
+    }
+  },
   add: ({title, url, id}) => {
-    let node = $.header.a.cloneNode(true);
-
-    node.href = url;
-    node.dataset.id = id;
+    const node = document.importNode($.header.template.content, true);
+    const a = node.querySelector('a');
+    a.href = url;
+    a.dataset.id = id;
     node.querySelector('span').textContent = title;
-    node.querySelector('img').src = 'chrome://favicon/' + url;
+    node.querySelector('img').src = bookmarks.favicon(url);
     $.header.parent.appendChild(node);
     return node;
   },
-  bar: (id) => {
-    return new Promise(resolve => {
-      chrome.bookmarks.getSubTree(id || bookmarks.id, ([e]) => resolve(e.children));
-    });
-  },
+  bar: id => new Promise(resolve => {
+    chrome.bookmarks.getSubTree(id || bookmarks.id, ([e]) => resolve(e.children));
+  }),
   build: () => {
     [...$.header.parent.querySelectorAll('a')]
       .slice(1).forEach(a => a.parentNode.removeChild(a));
-    bookmarks.bar().then(entries => entries.forEach(bookmarks.add));
+    bookmarks.bar().then(entries => entries
+      // filter folders
+      .filter(e => !e.children)
+      .filter(e => e.url.indexOf('://') !== -1)
+      .forEach(bookmarks.add));
   },
-  insert: ({id, title, url}) => {
-    return new Promise(resolve => {
-      chrome.bookmarks.create({
-        parentId: id || bookmarks.id,
-        title,
-        url
-      }, resolve);
-    });
-  },
-  remove: (id) => {
-    return new Promise(resolve => {
-      chrome.bookmarks.remove(id, resolve);
-    });
-  }
+  insert: ({id, title, url}) => new Promise(resolve => {
+    chrome.bookmarks.create({
+      parentId: id || bookmarks.id,
+      title,
+      url
+    }, resolve);
+  }),
+  remove: id => new Promise(resolve => {
+    chrome.bookmarks.remove(id, resolve);
+  })
 };
 
 /*var topSites = {
@@ -89,27 +97,35 @@ var bookmarks = {
   }
 };*/
 
-(function (url) {
-  if (url) {
-    bing.insert(url);
-  }
+(function(url, img) {
+  bing.insert(img || chrome.runtime.getURL('data/override/default.jpg'));
   bing.url('en-US').then(u => {
-    cookie.set('url', u);
-    if (!url) {
-      bing.insert(u);
+    if (u !== url) {
+      const req = new XMLHttpRequest();
+      req.open('GET', u);
+      req.responseType = 'blob';
+      req.onload = () => {
+        const fileReader = new FileReader();
+        fileReader.onload = ({target}) => {
+          const dataURL = target.result;
+          localStorage.setItem('image', dataURL);
+          bing.insert(dataURL);
+          cookie.set('url', u);
+        };
+        fileReader.readAsDataURL(req.response);
+      };
+      req.send();
     }
   });
-})(cookie.get('url'));
+})(cookie.get('url'), localStorage.getItem('image'));
 
 /*topSites.list().then(entries => {
   entries.forEach(topSites.add);
 });*/
 bookmarks.build();
 
-function update () {
-  function td (s) {
-    return ('00' + s).substr(-2);
-  }
+function update() {
+  const td = s => ('00' + s).substr(-2);
 
   const now = new Date();
   $.time.textContent = `${td(now.getHours())}.${td(now.getMinutes())}.${td(now.getSeconds())}`;
@@ -121,13 +137,13 @@ function update () {
     td(now.getDate());
 }
 update();
-(function () {
+{
   let id;
-  function one () {
+  const one = () => {
     window.clearTimeout(id);
     id = window.setTimeout(one, 1000);
     update();
-  }
+  };
   one();
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
@@ -137,7 +153,7 @@ update();
       one();
     }
   });
-})();
+}
 
 // Drag & Drop
 $.header.parent.addEventListener('dragover', e => {
@@ -172,9 +188,9 @@ var contextmenu;
 document.addEventListener('contextmenu', e => {
   contextmenu = e.target;
 });
-chrome.runtime.onMessage.addListener(request => {
-  if (request.method === 'remove-link') {
-    let a = contextmenu && contextmenu.closest('a');
+chrome.runtime.onMessage.addListener(({method}) => {
+  if (method === 'remove-link') {
+    const a = contextmenu && contextmenu.closest('a');
     if (a && a.dataset.id) {
       bookmarks.remove(a.dataset.id).then(bookmarks.build);
     }
@@ -184,8 +200,11 @@ chrome.runtime.onMessage.addListener(request => {
 // Fixes
 document.addEventListener('click', e => {
   const a = e.target.closest('a');
-  if (a && a.href && a.href.startsWith('chrome://')) {
-    document.location.replace(a.href);
+  if (a && a.href && (
+    a.href.startsWith('chrome://') ||
+    a.href.startsWith('about:')
+  )) {
+    e.preventDefault();
     chrome.tabs.query({
       active: true,
       currentWindow: true

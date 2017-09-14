@@ -9,6 +9,7 @@ body {
   font-family: "Helvetica Neue",Helvetica,sans-serif;
   font-size: 13px;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 header {
   padding: 0 6px;
@@ -20,6 +21,7 @@ header>a {
   padding: 6px;
   cursor: pointer;
   text-decoration: none;
+  user-select: none;
 }
 header>a,
 header>a:visited {
@@ -30,6 +32,7 @@ header>a:hover {
 }
 header>a img{
   margin-right: 5px;
+  min-width: 16px;
 }
 header>a span {
   overflow: hidden;
@@ -89,4 +92,10 @@ header>a span {
 }
 [flex="1"] {
   flex: 1;
+}
+
+@-moz-document url-prefix() {
+  .chrome {
+    display: none;
+  }
 }

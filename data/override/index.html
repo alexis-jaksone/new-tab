@@ -2,15 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>New Tab :: Time & Date</title>
+    <title>New Tab :: Time &amp; Date</title>
     <link rel="stylesheet" href="index.css">
   </head>
   <body vbox>
     <header hbox>
-      <a href="chrome://apps/" hbox align=center>
+      <a href="chrome://apps/" hbox align=center class="chrome">
         <img src="apps.svg" width="16" height="16">
         <span>Apps</span>
       </a>
+      <template>
+        <a href="" hbox align=center>
+          <img src="web.svg" width="16" height="16">
+          <span>-</span>
+        </a>
+      </template>
     </header>
     <div id="body" flex="1" vbox pack="center" align="center">
       <div class="grid" vbox>
