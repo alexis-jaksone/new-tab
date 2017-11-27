@@ -6,10 +6,12 @@ body {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-image: url('default.jpg');
   font-family: "Helvetica Neue",Helvetica,sans-serif;
   font-size: 13px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 header {
   padding: 0 6px;
@@ -39,6 +41,9 @@ header>a span {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+header [data-id=sidebar] {
+  font-size: 140%;
+}
 
 .grid {
   background-color: rgba(37, 37, 37, 0.25);
@@ -67,10 +72,66 @@ header>a span {
 }
 
 #time {
-  font: 50px Courier;
+  font: 60px Courier;
 }
 #date {
   font: 20px Courier;
+}
+
+#weather {
+  font: 20px Courier;
+  margin-top: 10px;
+}
+#weather[data-visible=false] {
+  opacity: 0;
+}
+#weather i {
+  margin-right: 10px;
+}
+#weather a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#sidebar {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  background-color: #fff;
+  border-right: solid 1px #ccc;
+  transition: all 300ms ease;
+  transition-property: transform, opacity;
+  opacity: 0;
+  transform: translateX(100%);
+  padding: 0 10px;
+}
+#sidebar[data-open=true] {
+  transform: translateX(0);
+  opacity: 1;
+}
+header [data-id=sidebar] span {
+  pointer-events: none;
+}
+#sidebar input[type=button] {
+  border: solid 1px #ccc;
+  background-color: #fff;
+  color: #000;
+  border-radius: 0;
+  min-width: 100px;
+  padding: 3px;
+  outline: none;
+  cursor: pointer;
+}
+#sidebar select,
+#sidebar input[type=text] {
+  width: 100%;
+  box-sizing: border-box;
+}
+#latitude,
+#longitude {
+  width: 50%;
 }
 
 [hbox] {

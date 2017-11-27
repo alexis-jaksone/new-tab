@@ -3,11 +3,12 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>New Tab :: Time &amp; Date</title>
+    <link rel="stylesheet" href="weather/weather-icons.css">
     <link rel="stylesheet" href="index.css">
   </head>
   <body vbox>
     <header hbox>
-      <a href="chrome://apps/" hbox align=center class="chrome">
+      <a href="chrome://apps/" hbox align=center class="chrome" data-id="apps">
         <img src="apps.svg" width="16" height="16">
         <span>Apps</span>
       </a>
@@ -17,6 +18,8 @@
           <span>-</span>
         </a>
       </template>
+      <span data-id="spacer" flex="1"></span>
+      <a data-id="sidebar"><span>☰</span></a>
     </header>
     <div id="body" flex="1" vbox pack="center" align="center">
       <div class="grid" vbox>
@@ -39,6 +42,76 @@
         </div>
       </div>
     </form>
+    <footer hbox>
+      <div id="weather" data-visible=false class="grid">
+        <a href="#" hbox pack=center target="_blank">
+          <span data-id="temperature"></span>°&nbsp;-&nbsp;
+          <i class="wi"></i>
+          <span data-id="description"></span>
+        </a>
+      </div>
+    </footer>
+    <div id="sidebar" data-open=false vbox>
+      <h3>Weather Widget</h3>
+      <table width=100%>
+        <colgroup>
+          <col width="22">
+          <col width=100>
+          <col>
+        </colgroup>
+        <tr>
+          <td><input type="checkbox" id="prefs.weather"></td>
+          <td colspan="2"><label for=prefs.weather>Display current weather condition</label></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>City ID</td>
+          <td><input type="text" id="prefs.city" placeholder="e.g.: London or London,uk"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Position</td>
+          <td>
+            <div hbox>
+              <input type="text" id="prefs.latitude" placeholder="Latitude">
+              &nbsp;
+              <input type="text" id="prefs.longitude" placeholder="Longitude">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>ZIP Code</td>
+          <td><input type="text" id="prefs.zip" placeholder="e.g.: 94040,us"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Unit</td>
+          <td><select id="prefs.units">
+            <option value="metric">Metric (Celsius)</option>
+            <option value="imperial">Imperial (Fahrenheit)</option>
+            <option value="kelvin">Kelvin</option>
+          </select></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" id="prefs.accurate"></td>
+          <td colspan="2"><label for=prefs.accurate>Display decimal point</label></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>Language</td>
+          <td><input type="text" id="prefs.lang" placeholder="e.g.: ru, en ... "></td>
+        </tr>
+      </table>
+      <div flex=1></div>
+      <p>
+        <input type="button" value="Save" id="save">
+        <span id="status"></span>
+      </p>
+
+    </div>
     <script src="index.js"></script>
+    <script src="weather/index.js"></script>
+    <script src="sidebar/index.js"></script>
   </body>
 </html>

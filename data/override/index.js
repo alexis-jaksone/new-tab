@@ -5,7 +5,8 @@ var $ = {
   header: {
     parent: document.querySelector('header'),
     a: document.querySelector('header>a'),
-    template: document.querySelector('header>template')
+    template: document.querySelector('header>template'),
+    spacer: document.querySelector('header [data-id=spacer]')
   },
   time: document.getElementById('time'),
   date: document.getElementById('date')
@@ -51,7 +52,7 @@ var bookmarks = {
     a.dataset.id = id;
     node.querySelector('span').textContent = title;
     node.querySelector('img').src = bookmarks.favicon(url);
-    $.header.parent.appendChild(node);
+    $.header.parent.insertBefore(node, $.header.spacer);
     return node;
   },
   bar: id => new Promise(resolve => {
@@ -59,7 +60,8 @@ var bookmarks = {
   }),
   build: () => {
     [...$.header.parent.querySelectorAll('a')]
-      .slice(1).forEach(a => a.parentNode.removeChild(a));
+      .filter(a => a.dataset.id !== 'apps' && a.dataset.id !== 'sidebar')
+      .forEach(a => a.remove());
     bookmarks.bar().then(entries => entries
       // filter folders
       .filter(e => !e.children)
