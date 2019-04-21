@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Tab :: Options Page</title>
+</head>
+<body>
+  <style type="text/css">
+    body {
+      min-width: 500px;
+    }
+    input[type=text] {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+  <table width=100%>
+    <colgroup>
+      <col width="24">
+      <col width="80">
+      <col>
+    </colgroup>
+    <tr>
+      <td><input type="radio" name="selector" id="d-mode"></td>
+      <td><label for="d-mode">Defaults</label></td>
+      <td>
+        <select id="defaults">
+          <option value="https://calendar.google.com/calendar/r/day">Day</option>
+          <option value="https://calendar.google.com/calendar/r/week">Week</option>
+          <option value="https://calendar.google.com/calendar/r/month">Month</option>
+          <option value="https://calendar.google.com/calendar/r/year">Year</option>
+          <option value="https://calendar.google.com/calendar/r/agenda">Schedule</option>
+          <option value="https://calendar.google.com/calendar/r/customday">4 Days</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td><input type="radio" name="selector" id="c-mode"></td>
+      <td><label for="c-mode">Custom</label></td>
+      <td><input type="text" id="custom" placeholder="Custom page URL for the new tabs"></td>
+    </tr>
+  </table>
+  <p>
+    <input type="button" id="reset" value="Factory Reset">
+    <input type="button" id="support" value="Support Development"> - <input type="button" id="save" value="Save">
+    <span id="info"></span>
+  </p>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>

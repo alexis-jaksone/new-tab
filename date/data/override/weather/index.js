@@ -69,11 +69,12 @@ Wind: Speed ${j.wind.speed} ${o.units === 'imperial' ? 'miles/hour' : 'meter/sec
     zip: '',
     position: {},
     city: '',
-    weather: true,
+    weather: false,
     units: 'metric',
     accurate: false,
     lang: chrome.i18n.getUILanguage()
   }, prefs => {
+    console.log(prefs);
     if (prefs.weather) {
       if (prefs.zip) {
         forecast('zip', prefs);
@@ -93,7 +94,7 @@ Wind: Speed ${j.wind.speed} ${o.units === 'imperial' ? 'miles/hour' : 'meter/sec
             }
           };
           chrome.storage.local.set(ps, () => forecast('position', Object.assign(prefs, ps)));
-        });
+        }, e => alert('Weather Widget\n\nCannot find your location from navigator.geolocation. Please use the right-sidebar to set your location manually or disable this widget'));
       }
     }
     else {

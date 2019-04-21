@@ -1,5 +1,7 @@
 'use strict';
 
+document.addEventListener('DOMContentLoaded', () => document.body.dataset.ready = true);
+
 var $ = {
   body: document.body,
   header: {
@@ -42,7 +44,12 @@ var bookmarks = {
     }
     else {
       // temporary solution until nsIFaviconService is supported
-      return 'http://www.google.com/s2/favicons?domain_url=' + url;
+      if (localStorage.getItem('favicon') !== 'false') {
+        return 'http://www.google.com/s2/favicons?domain_url=' + url;
+      }
+      else {
+        return 'web.svg';
+      }
     }
   },
   add: ({title, url, id}) => {

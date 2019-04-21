@@ -72,9 +72,8 @@
           <td></td>
           <td>Position</td>
           <td>
-            <div hbox>
-              <input type="text" id="prefs.latitude" placeholder="Latitude">
-              &nbsp;
+            <div>
+              <input type="text" id="prefs.latitude" placeholder="Latitude" style="margin-bottom: 1px">
               <input type="text" id="prefs.longitude" placeholder="Longitude">
             </div>
           </td>
@@ -103,15 +102,32 @@
           <td><input type="text" id="prefs.lang" placeholder="e.g.: ru, en ... "></td>
         </tr>
       </table>
+      <h3>Custom CSS</h3>
+      <textarea id="userstyle" rows="10" placeholder="This CSS code can be used to alter the start's page user interface. You can alter almost anything, from the background image to the font-size"></textarea>
+      <h3>Favicon</h3>
+      <table width=100%>
+        <colgroup>
+          <col width="22">
+          <col>
+        </colgroup>
+        <tr>
+          <td><input type="checkbox" id="favicon"></td>
+          <td><label for=favicon>Use Google S2 favicon service to resolve icons (Firefox only)</label></td>
+        </tr>
+      </table>
       <div flex=1></div>
       <p>
-        <input type="button" value="Save" id="save">
         <span id="status"></span>
+        <br>
+        <input type="button" value="Support Dev" id="support">
+        <br>
+        <input type="button" value="Reset" id="reset">
+        <input type="button" value="Save" id="save">
       </p>
 
     </div>
     <script src="index.js"></script>
-    <script src="weather/index.js"></script>
     <script src="sidebar/index.js"></script>
+    <script src="weather/index.js"></script>
   </body>
 </html>

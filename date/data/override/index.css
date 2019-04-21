@@ -7,11 +7,19 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url('default.jpg');
-  font-family: "Helvetica Neue",Helvetica,sans-serif;
-  font-size: 13px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  font-family: "Helvetica Neue",Helvetica,sans-serif;
+  font-size: 13px;
+}
+h3 {
+  font-weight: 300;
+}
+textarea,
+input {
+  font-family: "Helvetica Neue",Helvetica,sans-serif;
+  font-size: 11px;
 }
 header {
   padding: 0 6px;
@@ -27,7 +35,7 @@ header>a {
 }
 header>a,
 header>a:visited {
-  color: #fff;
+  color: whitesmoke;
 }
 header>a:hover {
   background-color: rgba(255, 255, 255, 0.18);
@@ -42,13 +50,13 @@ header>a span {
   white-space: nowrap;
 }
 header [data-id=sidebar] {
-  font-size: 140%;
+  font-size: 180%;
 }
 
 .grid {
   background-color: rgba(37, 37, 37, 0.25);
   padding: 30px;
-  color: #fff;
+  color: whitesmoke;
 }
 
 #search {
@@ -65,7 +73,7 @@ header [data-id=sidebar] {
   text-indent: 5px;
 }
 #search input:focus {
-  background-color: #fff;
+  background-color: whitesmoke;
 }
 #search img {
   cursor: pointer;
@@ -99,13 +107,15 @@ header [data-id=sidebar] {
   top: 0;
   height: 100%;
   width: 300px;
-  background-color: #fff;
+  background-color: whitesmoke;
   border-right: solid 1px #ccc;
-  transition: all 300ms ease;
   transition-property: transform, opacity;
   opacity: 0;
   transform: translateX(100%);
   padding: 0 10px;
+}
+body[data-ready=true] #sidebar {
+  transition: all 300ms ease;
 }
 #sidebar[data-open=true] {
   transform: translateX(0);
@@ -115,14 +125,15 @@ header [data-id=sidebar] span {
   pointer-events: none;
 }
 #sidebar input[type=button] {
-  border: solid 1px #ccc;
-  background-color: #fff;
+  border: none;
+  background-color: #dedede;
   color: #000;
   border-radius: 0;
   min-width: 100px;
   padding: 3px;
   outline: none;
   cursor: pointer;
+  margin-top: 5px;
 }
 #sidebar select,
 #sidebar input[type=text] {

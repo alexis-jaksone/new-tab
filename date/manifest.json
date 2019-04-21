@@ -1,9 +1,8 @@
 {
   "manifest_version": 2,
   "name": "Start Page - Date and Time",
-  "short_name": "intfbing",
   "description": "Displays bing.com's daily wallpaper on new tabs as well as date and time and weather widget.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "background": {
     "persistent": false,
     "scripts" : [
@@ -20,9 +19,11 @@
     "tabs",
     "topSites",
     "contextMenus",
-    "*://*/*"
+    "*://api.openweathermap.org/*",
+    "*://www.bing.com//HPImageArchive.aspx?*",
+    "*://www.google.com/s2/*"
   ],
-  "homepage_url": "http://add0n.com/new-tab.html",
+  "homepage_url": "https://add0n.com/new-tab.html?from=date",
   "icons": {
     "16": "data/icons/16.png",
     "32": "data/icons/32.png",
@@ -31,11 +32,5 @@
     "128": "data/icons/128.png",
     "256": "data/icons/256.png",
     "512": "data/icons/512.png"
-  },
-  "applications": {
-    "gecko": {
-      "id": "{555bcaf2-01a3-4221-988d-96551934e890}",
-      "strict_min_version": "55.0"
-    }
   }
 }

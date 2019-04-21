@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "version": "0.1.0",
+  "name": "Google Calendar™ on new Tab",
+  "description":"Show Google Calendar when a new tab is opened",
+  "permissions": [
+    "storage"
+  ],
+  "chrome_url_overrides" : {
+    "newtab": "data/page/index.html"
+  },
+  "options_ui": {
+    "page": "data/options/index.html",
+    "chrome_style": true
+  },
+  "icons": {
+    "16": "data/icons/16.png",
+    "24": "data/icons/24.png",
+    "32": "data/icons/32.png",
+    "48": "data/icons/48.png",
+    "64": "data/icons/64.png",
+    "128": "data/icons/128.png",
+    "256": "data/icons/256.png",
+    "512": "data/icons/512.png"
+  }
+}

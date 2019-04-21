@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Tab :: Redirecting</title>
+</head>
+<body>
+  <style type="text/css">
+    body {
+      height: calc(100vh - 20px);
+      margin: 10px;
+    }
+    body::after {
+      content: "";
+      background: url('../icons/256.png') no-repeat center center;
+      opacity: 0.3;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1;
+    }
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      html {
+        background: black;
+        color: white;
+      }
+      body::after {
+        filter: invert(100);
+      }
+    }
+    span {
+      animation: blinker 1s linear infinite;
+    }
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+  </style>
+  <span>Loading...</span>
+  <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
